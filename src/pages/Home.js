@@ -23,14 +23,17 @@ const Home = () => {
       filterProducts.map(product => (
         <div key={product.id} className="max-w-[300px] max-h-[300px] z-30 group border border-gray-300 flex flex-col relative overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-200 ">
           <div className='text-sm text-white flex flex-col p-2 gap-2  absolute top-0 right-0 bg-transparent w-16 h-16  z-50'>
-            <button className=' duration-300 hover:text-black bg-black px-2 py-3 rounded-md flex justify-center hover:bg-white border-[1px] hover:border-slate-300 border-transparent' onClick={() => addToCart(product, product.id)}>
+            <button className=' duration-300 hover:text-black bg-black px-2 py-3 rounded-md flex justify-center hover:bg-white border-[1px] hover:border-slate-300 border-transparent' onClick={() => addToCart(product)}>
               <FaCartPlus className='' />
 
             </button>
-            <button className=' duration-300 hover:text-black bg-black px-2 py-3 rounded-md flex justify-center hover:bg-white border-[1px] hover:border-slate-300 border-transparent'>
+            <Link  className="w-full duration-300 hover:text-black bg-black px-2 py-3 rounded-md flex justify-center hover:bg-white border-[1px] hover:border-slate-300 border-transparent" to={`/product/${product.id}`}>
+            <button className=' '>
               <FaHeart />
 
             </button>
+            </Link>
+            
           </div>
           <div className='overflow-hidden relative transition-all duration-300 w-full flex justify-center my-4 h-40'>
             <img src={product.image} alt={product.title} className="group-hover:scale-125  w-3/5  mb-2 h-50 transition-all duration-300" />

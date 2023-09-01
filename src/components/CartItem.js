@@ -2,6 +2,7 @@ import React, { useContext, useState } from 'react';
 import { SidebarContext } from '../contexts/SidebarContext';
 import { CartContext } from '../contexts/CartContext';
 import { FaMinus, FaTrash, FaPlus } from 'react-icons/fa';
+import { Link } from 'react-router-dom';
 
 const CartItem = () => {
   const [amount, setAmount] = useState(0)
@@ -12,12 +13,22 @@ const CartItem = () => {
       {cart.map(item => (
         <div key={item.id} className='flex flex-row border-b-[1px] border-slate-300 py-4 w-full gap-y-10 items-start'>
           <div className='flex flex-row gap-4'>
-            <img className='w-[19%] ' alt='product image' src={item.image} />
+
+          <Link className='w-[19%]' to={`/product/${item.id}`}>
+
+          <img  alt='product image' src={item.image} />
+
+          </Link>
 
             <div>
-              <span className=''>
+            <Link>
+              
+            </Link>
+             <Link to={`/product/${item.id}`}>
+             <span className=''>
               {item.title.length > 10 ? `${item.title.substring(0, 30)}...` : item.title}
               </span>
+              </Link>
               <div className='flex flex-row items-center justify-center gap-8'>
                 <div className='cursor-pointer w-24 py-2 px-1 flex flex-row flex-grow justify-center items-center bg-white border-gray-300 border-[1px] '>
                   <FaMinus  className="hover:text-red-400" onClick={() => {

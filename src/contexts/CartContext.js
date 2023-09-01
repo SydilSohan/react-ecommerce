@@ -8,14 +8,14 @@ const CartProvider = ({ children }) => {
   const [cart, setCart] = useState([]);
   const {isOpen, setIsOpen} = useContext(SidebarContext)
   
-  const addToCart = (product, id) => {
+  const addToCart = (product) => {
     const cartItem = cart.find(item => {
-      return item.id === id;
+      return item.id === product.id;
     });
 
     if (cartItem) {
       const newCart = cart.map(item => {
-        if (item.id === id) {
+        if (item.id === product.id) {
           return { ...item, amount: cartItem.amount + 1 };
         }
         return item;
@@ -23,7 +23,10 @@ const CartProvider = ({ children }) => {
 
       setCart(newCart);
       setIsOpen(true);
-
+      setTimeout(() => {
+        setIsOpen(false)
+      }, 2500)
+    
 
     } else {
       const newCartItem = { ...product, amount: 1 };
