@@ -6,7 +6,7 @@ export const CartContext = createContext();
 
 const CartProvider = ({ children }) => {
   const [cart, setCart] = useState([]);
-  const {isOpen, setIsOpen} = useContext(SidebarContext)
+  const {setIsOpen} = useContext(SidebarContext)
   
   const addToCart = (product) => {
     const cartItem = cart.find(item => {
@@ -22,18 +22,15 @@ const CartProvider = ({ children }) => {
       });
 
       setCart(newCart);
-      setIsOpen(true);
-      setTimeout(() => {
-        setIsOpen(false)
-      }, 2500)
-    
+      
 
     } else {
       const newCartItem = { ...product, amount: 1 };
       setCart([...cart, newCartItem]);
-      setIsOpen(true)
 
     }
+    setIsOpen(true)
+
 
   };
 

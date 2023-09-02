@@ -1,11 +1,9 @@
-import React, { useContext, useState } from 'react';
-import { SidebarContext } from '../contexts/SidebarContext';
+import React, { useContext} from 'react';
 import { CartContext } from '../contexts/CartContext';
 import { FaMinus, FaTrash, FaPlus } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 
 const CartItem = () => {
-  const [amount, setAmount] = useState(0)
   const { cart, removeFromCart, handleAmountChange } = useContext(CartContext);
 
   return (
@@ -30,7 +28,7 @@ const CartItem = () => {
               </span>
               </Link>
               <div className='flex flex-row items-center justify-center gap-8'>
-                <div className='cursor-pointer w-24 py-2 px-1 flex flex-row flex-grow justify-center items-center bg-white border-gray-300 border-[1px] '>
+                <div className='cursor-pointer w-[150px] py-2 px-1 flex flex-row flex-grow justify-center items-center bg-white border-gray-300 border-[1px] '>
                   <FaMinus  className="hover:text-red-400" onClick={() => {
                     if (item.amount > 1) {
                       handleAmountChange(item.id, item.amount - 1)
