@@ -1,11 +1,20 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState,useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { ProductContext } from '../contexts/ProductContext';
 import {  FaCartPlus, FaHeart } from "react-icons/fa";
 import { CartContext } from '../contexts/CartContext';
-
+import { db } from '../fireBaseConfig';
+import {
+  collection,
+  getDocs,
+  addDoc, setDoc, getDoc, deleteDoc, doc, updateDoc
+} from "firebase/firestore";
 
 const Grid = () => {
+const [firebaseProducts, setProducts] = useState([]);
+
+const productsCollectionRef = collection(db, "products");
+
     const { products } = useContext(ProductContext);
   const { addToCart } = useContext(CartContext);
 
@@ -15,7 +24,18 @@ const Grid = () => {
     return category === "" || item.category === category;
   });
 
-
+  useEffect(() => {
+    const getProducts = async () => {
+    const data = await getDocs(productsCollectionRef);
+    setProducts(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+  
+  
+  }
+  
+  
+  getProducts()
+  
+  }, [])
     return (
       <>
         <div className='bg-white rounded-sm  w-full md:w-4/6 '>

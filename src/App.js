@@ -8,29 +8,42 @@ import Footer from "./components/Footer";
 import SidebarProvider from './contexts/SidebarContext';
 import ProductProvider from './contexts/ProductContext';
 import CartProvider from './contexts/CartContext';
-
+import { db } from './fireBaseConfig';
+import SignIn from './pages/SignIn';
+import UserProvider from "./contexts/UserContext";
+import Profile from './pages/Profile';
 const App = () => {
-
+console.log(db)
   return (<div className='overflow-hidden'>
 
+   
+   
+<UserProvider>
+   
+   
     <SidebarProvider>
 
       <ProductProvider>
-      <CartProvider>
+        <CartProvider>
       <BrowserRouter>
           <Header />
           <Sidebar />
           <Routes>
             <Route path="/" element={<Home />} />
+            <Route path="/profile" element={<Profile />} />
+
             <Route path="/product/:id" element={<ProductDetails />} />
 
           </Routes>
+          <SignIn />
           <Footer />
         </BrowserRouter>
       </CartProvider>
+      
         
       </ProductProvider>
     </SidebarProvider>
+    </UserProvider>
 
   </div>);
 };
