@@ -8,8 +8,9 @@ import Footer from "./components/Footer";
 import SidebarProvider from './contexts/SidebarContext';
 import ProductProvider from './contexts/ProductContext';
 import CartProvider from './contexts/CartContext';
+import CheckoutPage from './pages/Checkout';
 import { db } from './fireBaseConfig';
-import SignIn from './pages/SignIn';
+import SignIn from './components/SignIn';
 import UserProvider from "./contexts/UserContext";
 import Profile from './pages/Profile';
 const App = () => {
@@ -33,9 +34,10 @@ console.log(db)
             <Route path="/profile" element={<Profile />} />
 
             <Route path="/product/:id" element={<ProductDetails />} />
+            <Route path="/checkout" element={<CheckoutPage />} />
+
 
           </Routes>
-          <SignIn />
           <Footer />
         </BrowserRouter>
       </CartProvider>

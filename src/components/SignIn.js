@@ -21,21 +21,20 @@ const {user, handleLogIn, handleLogOut,} = useContext(UserContext)
 // setValue(localStorage.getItem("email"))
 // }, [])
   return (
-    <div className='w-3/6 mx-auto rounded-lg shadow-2xl flex justify-center p-4 m-12'>
-    {user ? <>
-    <img  src={user.photoURL} className='rounded-full'/>
-        <h1> Singned in </h1>
-        <button  onClick={handleLogOut}>  Logout</button>
-    </> 
+    < >
+    {user ? <div className='flex flex-row gap-3'>
+    <img  src={user.photoURL} className='rounded-full w-10'/>
+        <button className='text-sm text-slate-500' onClick={handleLogOut}>  Logout</button>
+    </div> 
     
-     :  <button className=' flex-shrink mx-auto my-4 text-white duration-300 hover:text-black bg-black px-2 py-3 rounded-md flex justify-center items-center text-center hover:bg-white border-[1px] hover:border-slate-300 border-transparent' onClick={handleLogIn}>
+     :  <button className=' flex-shrink mx-auto  text-white duration-300 hover:text-black bg-black px-2 py-3 rounded-md flex justify-center items-center text-center hover:bg-white border-[1px] hover:border-slate-300 border-transparent text-sm' onClick={handleLogIn}>
 
      <FcGoogle className='mr-2' />
         Sign in With Google
     </button>}
     
    
-    </div>
+    </>
   )
 }
 

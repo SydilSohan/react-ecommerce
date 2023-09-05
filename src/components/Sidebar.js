@@ -3,6 +3,7 @@ import { FaArrowRight,  FaTrash } from 'react-icons/fa';
 import { SidebarContext } from '../contexts/SidebarContext';
 import CartItem from './CartItem';
 import { CartContext } from '../contexts/CartContext';
+import { Link } from 'react-router-dom';
 const Sidebar = () => {
   const { cart, setCart, updateCartInFirestore, total, emptyCart} = useContext(CartContext);
   const { isOpen, setIsOpen } = useContext(SidebarContext);
@@ -19,7 +20,11 @@ const Sidebar = () => {
         <button onClick={emptyCart}> <FaTrash /> </button>
       </div>
         <button className=' px-8 py-4 flex-grow bg-slate-400' onClick={updateCartInFirestore}>Save</button>
-        <button className='bg-black text-white px-8 py-4  flex-grow '>Checkout</button>
+
+        <Link to={"/checkout"} className='bg-black text-white px-8 py-4  flex-grow  text-center'>
+        <button className=''>Checkout</button>
+
+        </Link>
       </div>
     </div>);
 };
