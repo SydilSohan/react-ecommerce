@@ -13,6 +13,10 @@ import { db } from './fireBaseConfig';
 import SignIn from './components/SignIn';
 import UserProvider from "./contexts/UserContext";
 import Profile from './pages/Profile';
+import OrderProvider from './contexts/OrderContext';
+import SingleOrder from './pages/SingleOrder';
+import OrderCollection from './pages/OrderCollection';
+import Content from './pages/Features';
 const App = () => {
 console.log(db)
   return (<div className='overflow-hidden'>
@@ -25,7 +29,9 @@ console.log(db)
     <SidebarProvider>
 
       <ProductProvider>
-        <CartProvider>
+        <CartProvider>  
+        <OrderProvider>
+
       <BrowserRouter>
           <Header />
           <Sidebar />
@@ -35,11 +41,19 @@ console.log(db)
 
             <Route path="/product/:id" element={<ProductDetails />} />
             <Route path="/checkout" element={<CheckoutPage />} />
+            <Route path="/orders" element={<OrderCollection />} />
+
+            <Route path="/orders/:id" element={<SingleOrder />} />
+            <Route path="/features" element={<Content />} />
+
+
 
 
           </Routes>
           <Footer />
         </BrowserRouter>
+        </OrderProvider>
+      
       </CartProvider>
       
         

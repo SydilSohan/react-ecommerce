@@ -1,17 +1,45 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { CartContext } from '../contexts/CartContext';
 import CartItem from '../components/CartItem';
 import { SidebarContext } from '../contexts/SidebarContext';
-const CheckoutPage = () => {
+import { OrderContext } from '../contexts/OrderContext';
+import { doc, getDoc, setDoc, updateDoc, collection, getDocs, addDoc } from 'firebase/firestore';
+import { UserContext } from '../contexts/UserContext';
+import { db } from '../fireBaseConfig';
+import { useNavigate } from 'react-router-dom';
 
-  const {cart, total} = useContext(CartContext);
+const CheckoutPage = () => {
+  const {placeOrder, orderForm, setOrderForm, latestOrderId} = useContext(OrderContext);
+  const {user} = useContext(UserContext);
+  const {cart, total, emptyCart} = useContext(CartContext);
   const {setIsOpen} = useContext(SidebarContext);
+  const navigate = useNavigate();
+  
   useEffect(()=> {
     setIsOpen(false)
   }, [])
+  
+  const handleInputChange = (e) => {
+    setOrderForm({
+      ...orderForm,
+      [e.target.name] : e.target.value
+    })
+  }
+  
+ 
+  
+  const handleSubmit = async  (e) => {
+    e.preventDefault();
+    console.log(orderForm);
+    console.log(user)
+    await placeOrder()
+    
+  } 
 
   return (
-    <div className=" grid grid-cols-3 w-11/12 mx-auto ">
+   
+   
+    <div className=" grid grid-cols-3 w-11/12 mx-auto "> 
       <div className="lg:col-span-2 col-span-3 bg-indigo-50 space-y-8 px-12">
         <div className="mt-8 p-4 relative flex flex-col sm:flex-row sm:items-center bg-white shadow rounded-md">
           <div className="flex flex-row items-center border-b sm:border-b-0 w-full sm:w-auto pb-4 sm:pb-0">
@@ -28,38 +56,55 @@ const CheckoutPage = () => {
           </div>
         </div>
         <div className="rounded-md">
-          <form id="payment-form" method="POST" action="">
+          <form id="payment-form" onSubmit={handleSubmit}>
             <section>
               <h2 className="uppercase tracking-wide text-lg font-semibold text-gray-700 my-2">Shipping & Billing Information</h2>
               <fieldset className="mb-3 bg-white shadow-lg rounded text-gray-600">
+              
                 <label className="flex border-b border-gray-200 h-12 py-3 items-center">
                   <span className="text-right px-2">Name</span>
-                  <input name="name" className="focus:outline-none px-3" placeholder="Try Odinsson" required="" />
+                  <input 
+                  type='text'
+                  onChange={handleInputChange}
+                  value={orderForm.name}
+                   name="name" className="focus:outline-none px-3" placeholder="Try Odinsson" required />
                 </label>
                 <label className="flex border-b border-gray-200 h-12 py-3 items-center">
                   <span className="text-right px-2">Email</span>
-                  <input name="email" type="email" className="focus:outline-none px-3" placeholder="try@example.com" required="" />
+                  <input 
+                  onChange={handleInputChange}
+                  value={orderForm.email}
+                  name="email" type="email" className="focus:outline-none px-3" placeholder="try@example.com" required />
                 </label>
                 <label className="flex border-b border-gray-200 h-12 py-3 items-center">
                   <span className="text-right px-2">Address</span>
-                  <input name="address" className="focus:outline-none px-3" placeholder="10 Street XYZ 654" />
+                  <input 
+                   onChange={handleInputChange}
+                  value={orderForm.address}
+                  name="address" className="focus:outline-none px-3" placeholder="10 Street XYZ 654"  required />
                 </label>
                 <label className="flex border-b border-gray-200 h-12 py-3 items-center">
                   <span className="text-right px-2">City</span>
-                  <input name="city" className="focus:outline-none px-3" placeholder="San Francisco" />
+                  <input 
+                   onChange={handleInputChange}
+                  value={orderForm.city}
+                  name="city" className="focus:outline-none px-3" placeholder="San Francisco"  required/>
                 </label>
-                <label className="inline-flex w-2/4 border-gray-200 py-3">
-                  <span className="text-right px-2">State</span>
-                  <input name="state" className="focus:outline-none px-3" placeholder="CA" />
-                </label>
+                
                 <label className="xl:w-1/4 xl:inline-flex py-3 items-center flex xl:border-none border-t border-gray-200 py-3">
                   <span className="text-right px-2 xl:px-0 xl:text-none">ZIP</span>
-                  <input name="postal_code" className="focus:outline-none px-3" placeholder="98603" />
+                  <input
+                    onChange={handleInputChange}
+                  value={orderForm.zip}
+                   name="postal_code" className="focus:outline-none px-3" placeholder="98603" />
                 </label>
                 <label className="flex border-t border-gray-200 h-12 py-3 items-center select relative">
                   <span className="text-right px-2">Country</span>
                   <div id="country" className="focus:outline-none px-3 w-full flex items-center">
-                    <select name="country" className="border-none bg-transparent flex-1 cursor-pointer appearance-none focus:outline-none">
+                    <select 
+                      onChange={handleInputChange}
+                  value={orderForm.country}
+                     name="country" className="border-none bg-transparent flex-1 cursor-pointer appearance-none focus:outline-none">
                       <option value="AU">Australia</option>
                       <option value="BE">Belgium</option>
                       <option value="BR">Brazil</option>
@@ -82,24 +127,22 @@ const CheckoutPage = () => {
                       <option value="ES">Spain</option>
                       <option value="TN">Tunisia</option>
                       <option value="GB">United Kingdom</option>
-                      <option value="US" selected="selected">United States</option>
+                      <option value="US">United States</option>
                     </select>
                   </div>
-                </label>
-              </fieldset>
+                </label> <label className="flex border-b border-gray-200 h-12 py-3 items-center">
+                <span className="text-right px-2">Card</span>
+                <input name="card" className="focus:outline-none px-3 w-full" placeholder="Card number MM/YY CVC" required />
+              </label>
+                <button className="submit-button px-4 py-3 rounded-full bg-pink-400 text-white focus:ring focus:outline-none w-full text-xl font-semibold transition-colors" type='submit'>
+          Pay ${total}
+        </button>
+              </fieldset><div className="rounded-md">
+        
+        </div>
+        
             </section>
           </form>
-        </div>
-        <div className="rounded-md">
-          <section>
-            <h2 className="uppercase tracking-wide text-lg font-semibold text-gray-700 my-2">Payment Information</h2>
-            <fieldset className="mb-3 bg-white shadow-lg rounded text-gray-600">
-              <label className="flex border-b border-gray-200 h-12 py-3 items-center">
-                <span className="text-right px-2">Card</span>
-                <input name="card" className="focus:outline-none px-3 w-full" placeholder="Card number MM/YY CVC" required="" />
-              </label>
-            </fieldset>
-          </section>
         </div>
         
       </div>
@@ -111,7 +154,7 @@ const CheckoutPage = () => {
 
           <ul className="py-6 border-b space-y-6 px-8">
         {cart.map(item => (
-          <li className="grid grid-cols-6 gap-2 border-b-1">
+          <li key={item.id} className="grid grid-cols-6 gap-2 border-b-1">
             <div className="col-span-1 self-center mr-2">
               <img src={item.image} alt="Product" className="rounded w-full" />
             </div>
@@ -145,9 +188,7 @@ const CheckoutPage = () => {
           <span>Total</span>
           <span>${total}</span>
         </div>
-        <button className="submit-button px-4 py-3 rounded-full bg-pink-400 text-white focus:ring focus:outline-none w-full text-xl font-semibold transition-colors">
-          Pay ${total}
-        </button>
+       
 
           
         </>

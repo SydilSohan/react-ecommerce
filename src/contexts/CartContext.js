@@ -60,7 +60,6 @@ const CartProvider = ({ children }) => {
       if (user) {
         const userDocRef = doc(db, 'carts', user.uid);
         const userDocSnapshot = await getDoc(userDocRef);            
-        setTotal(userDocSnapshot.data().total)
         if (userDocSnapshot.exists()) {
           const userCartItems = cart.map((item) => ({
             productId: item.id,

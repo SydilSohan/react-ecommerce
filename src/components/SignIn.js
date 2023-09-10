@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from 'react'
 import {auth, provider} from "../fireBaseConfig";
 import { FcGoogle } from "react-icons/fc"
 import { UserContext } from '../contexts/UserContext';
+import { Link } from 'react-router-dom';
 const SignIn = () => {
 const {user, handleLogIn, handleLogOut,} = useContext(UserContext)
 // const [value, setValue] = useState("")
@@ -23,7 +24,10 @@ const {user, handleLogIn, handleLogOut,} = useContext(UserContext)
   return (
     < >
     {user ? <div className='flex flex-row gap-3'>
-    <img  src={user.photoURL} className='rounded-full w-10'/>
+    <Link to={"/orders"}>
+         <img  src={user.photoURL} className='rounded-full w-10'/>
+    </Link>
+ 
         <button className='text-sm text-slate-500' onClick={handleLogOut}>  Logout</button>
     </div> 
     

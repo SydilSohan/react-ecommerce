@@ -4,6 +4,7 @@ import { ProductContext } from '../contexts/ProductContext';
 import {  FaCartPlus, FaHeart } from "react-icons/fa";
 import { CartContext } from '../contexts/CartContext';
 import { db } from '../fireBaseConfig';
+import { motion, AnimatePresence, easeInOut, spring } from 'framer-motion';
 import {
   collection,
   getDocs,
@@ -62,10 +63,20 @@ const productsCollectionRef = collection(db, "products");
           </div>
 
         </div>
-        <div className="place-items-center grid gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 ">
-          {
-            filterProducts.map(product => (
-              <div key={product.id} className="min-h-[300px] aspect-square w-full group border border-gray-300 flex flex-col relative overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-200 ">
+        <motion.div className="place-items-center grid gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 "  >
+
+        <AnimatePresence>
+        {
+            filterProducts.map((product, index) => (
+              <motion.div key={product.id} className="min-h-[300px] aspect-square w-full group border border-gray-300 flex flex-col relative overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-200 "
+              
+              initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 20 }}
+
+            transition={{ duration: 0.3, delay: index * 0.1, ease: easeInOut}} 
+           
+            >
                 <div className='text-sm text-white flex flex-col p-2 gap-2  absolute top-0 right-0 bg-transparent w-16 h-16  z-10'>
                   <button className=' duration-300 hover:text-black bg-black px-2 py-3 rounded-md flex justify-center hover:bg-white border-[1px] hover:border-slate-300 border-transparent' onClick={() => addToCart(product)}>
                     <FaCartPlus className='' />
@@ -93,12 +104,15 @@ const productsCollectionRef = collection(db, "products");
 
                 </div>
 
-              </div>
+              </motion.div>
 
 
             ))
           }
-        </div>
+
+        </AnimatePresence>
+          
+        </motion.div>
 
 
       </>

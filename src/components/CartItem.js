@@ -4,11 +4,16 @@ import { FiMinus, FiTrash, FiPlus, FiArrowRight } from 'react-icons/fi';
 import { Link } from 'react-router-dom';
 import { UserContext } from '../contexts/UserContext';
 import { SidebarContext } from '../contexts/SidebarContext';
+import { AnimatePresence, easeInOut, motion } from 'framer-motion';
 
 const CartItem = () => {
-  const {isOpe, setIsOpen} =useContext(SidebarContext)
+  const {isOpen, setIsOpen} =useContext(SidebarContext)
   const {user } = useContext(UserContext)
   const { cart, removeFromCart, handleAmountChange, userCart, emptyCart } = useContext(CartContext);
+  const itemVariants = {
+    hidden: { opacity: 0, y: 30 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: easeInOut } },
+  };
 
   return (
 
@@ -24,8 +29,17 @@ const CartItem = () => {
         </button>
       </div>
         <div className='p-4'>
-      {cart.map(item => (
-        <div key={item.id} className='flex flex-row border-b-[1px] border-slate-300 py-4 w-full gap-y-10 items-start'>
+
+        <AnimatePresence>
+        {cart.map((item, index) => (
+        <motion.div
+        initial="closed"
+          animate={isOpen ? 'open' : 'closed'}
+          variants={itemVariants}
+          transition={{ duration: 0.3, delay: index * 0.1, ease: easeInOut} }
+          exit="closed"
+        
+         key={item.id} className='flex flex-row border-b-[1px] border-slate-300 py-4 w-full gap-y-10 items-start'>
           <div className='flex flex-row gap-4'>
 
           <Link className='w-[19%]' to={`/product/${item.id}`}>
@@ -67,8 +81,10 @@ const CartItem = () => {
 
 
 
-        </div>
+        </motion.div>
       ))}
+        </AnimatePresence>
+      
     </div>
            
         
