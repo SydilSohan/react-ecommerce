@@ -63,7 +63,7 @@ const productsCollectionRef = collection(db, "products");
           </div>
 
         </div>
-        <motion.div className="place-items-center grid gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 "  >
+        <motion.div className="place-items-center grid gap-4 grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 "  >
 
         <AnimatePresence>
         {
@@ -90,17 +90,15 @@ const productsCollectionRef = collection(db, "products");
                   </Link>
 
                 </div>
-                <div className='overflow-hidden relative transition-all duration-300 w-full flex justify-center my-4 h-40'>
+                <div className='overflow-hidden relative transition-all duration-300 w-full flex justify-center my-4 min-h-[8rem]'>
                   <img src={product.image} alt={product.title} className="group-hover:scale-125  w-auto  mb-2 h-50 transition-all duration-300" />
 
                 </div>
                 <div className='flex flex-col p-3'>
-                  <span>
-                    {product.category}
-                  </span>
-                  <h2 className="text-md font-semibold mb-2">{product.title}</h2>
+                  
+                  <h2 className=" text-sm sm:text-md font-semibold mb-2"> {product.title.length > 10 ? `${product.title.substring(0, 30)}...` : product.title}</h2>
 
-                  <p className="text-gray-600">${product.price}</p>
+                  <p className="text-gray-600 text-xs sm:text-sm">${product.price}</p>
 
                 </div>
 

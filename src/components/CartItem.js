@@ -42,7 +42,7 @@ const CartItem = () => {
          key={item.id} className='flex flex-row border-b-[1px] border-slate-300 py-4 w-full gap-y-10 items-start'>
           <div className='flex flex-row gap-4'>
 
-          <Link className='w-[19%]' to={`/product/${item.id}`}>
+          <Link className='w-[14%]' to={`/product/${item.id}`}>
 
           <img  alt='product image' src={item.image} />
 
@@ -57,8 +57,8 @@ const CartItem = () => {
               {item.title.length > 10 ? `${item.title.substring(0, 30)}...` : item.title}
               </span>
               </Link>
-              <div className='flex flex-row items-center justify-center gap-8'>
-                <div className='cursor-pointer w-[150px] py-2 px-1 flex flex-row flex-grow justify-center items-center bg-white border-gray-300 border-[1px] '>
+              <div className='flex flex-row items-center justify-center gap-12'>
+                {/* <div className='cursor-pointer w-[150px] py-2 px-1 flex flex-row flex-grow justify-center items-center bg-white border-gray-300 border-[1px] '>
                   <FiMinus  className="hover:text-red-400" onClick={() => {
                     if (item.amount > 1) {
                       handleAmountChange(item.id, item.amount - 1)
@@ -66,7 +66,35 @@ const CartItem = () => {
                   }} />
                   <input className=' text-center appearance-none flex justify-center items-center px-2 w-14 ' type="number" name="" id="" value={item.amount} onChange={e => handleAmountChange(item.id, Math.max(1, parseInt(e.target.value)))} />
                   <FiPlus className="hover:text-green-400 "onClick={() => handleAmountChange(item.id, item.amount + 1)} />
-                </div>
+                </div> */}
+             
+      
+      <div className="flex flex-row h-8 w-28 rounded-lg relative bg-transparent mt-1">
+        <button
+        onClick={() => {
+                    if (item.amount > 1) {
+                      handleAmountChange(item.id, item.amount - 1)
+                    }
+                  }}
+
+          data-action="decrement"
+          className=" bg-gray-300 text-gray-600 hover:text-gray-700 hover:bg-gray-400 h-full w-20 rounded-l cursor-pointer outline-none"
+        >
+          <span className="m-auto text-2xl font-thin">−</span>
+        </button>
+        <input
+          type="number"
+          className="outline-none focus:outline-none text-center w-full bg-gray-300 font-semibold text-md hover:text-black focus:text-black  md:text-basecursor-default flex items-center text-gray-700  outline-none"
+           name="" id="" value={item.amount} onChange={e => handleAmountChange(item.id, Math.max(1, parseInt(e.target.value)))}
+        />
+        <button
+         onClick={() => handleAmountChange(item.id, item.amount + 1)} className="bg-gray-300 text-gray-600 hover:text-gray-700 hover:bg-gray-400 h-full w-20 rounded-r cursor-pointer"
+        >
+          <span className="m-auto text-2xl font-thin"  >+</span>
+        </button>
+      </div>
+    
+                
                 <span className=' flex w-7'>
                   ${(item.amount * item.price).toFixed(2)}
                 </span>

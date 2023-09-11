@@ -129,63 +129,68 @@ const OrderProvider = ({ children }) => {
     }
   }
   const placeOrder = async () => {
-    try {
-      const userDocRef = doc(db, 'carts', user.uid);
-      const userDocSnapshot = await getDoc(userDocRef);
 
-      if (userDocSnapshot.exists() && cart.length > 0) {
+    if (user) {
 
-        const orderItems = cart.map((item) => ({
-          productId: item.id,
-          amount: item.amount,
-          price: item.price
-
-        }))
-        const ordersCollectionRef = collection(userDocRef, 'orders');
-
-        const newOrderRef = await addDoc(ordersCollectionRef, {
-          ...orderForm,
-          orderItems: orderItems,
-          orderDate: new Date(),
-          // Other order details
-        });
-        console.log(` latest order is ${newOrderRef.id}`)
-        getLatestOrder(newOrderRef.id)
-        emptyCart()
+      try {
+        const userDocRef = doc(db, 'carts', user.uid);
+        const userDocSnapshot = await getDoc(userDocRef);
+  
+        if (userDocSnapshot.exists() && cart.length > 0) {
+  
+          const orderItems = cart.map((item) => ({
+            productId: item.id,
+            amount: item.amount,
+            price: item.price
+  
+          }))
+          const ordersCollectionRef = collection(userDocRef, 'orders');
+  
+          const newOrderRef = await addDoc(ordersCollectionRef, {
+            ...orderForm,
+            orderItems: orderItems,
+            orderDate: new Date().toLocaleDateString(),
+            // Other order details
+          });
+          console.log(` latest order is ${newOrderRef.id}`)
+          getLatestOrder(newOrderRef.id)
+          emptyCart()
+      
+          setOrderForm({
+            address
+              :
+              "",
+            city
+              :
+              "",
+            country
+              :
+              "",
+            email
+              :
+              "",
+            name
+              :
+              "",
+            postal_code
+              :
+              "",
+            total
+              :
+              10.99
+          })
+          
+  
+        }
+        else {
+          alert("your cart is empty or databse error")
+        }
+      } catch (error) {
+        console.error('Error placing order:', error);
+      }
+  
+    } else alert("You have to be logged in to place order")
     
-        setOrderForm({
-          address
-            :
-            "",
-          city
-            :
-            "",
-          country
-            :
-            "",
-          email
-            :
-            "",
-          name
-            :
-            "",
-          postal_code
-            :
-            "",
-          total
-            :
-            10.99
-        })
-        
-
-      }
-      else {
-        alert("your cart is empty or databse error")
-      }
-    } catch (error) {
-      console.error('Error placing order:', error);
-    }
-
 
   };
 

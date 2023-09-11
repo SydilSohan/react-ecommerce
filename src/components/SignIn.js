@@ -23,9 +23,10 @@ const {user, handleLogIn, handleLogOut,} = useContext(UserContext)
 // }, [])
   return (
     < >
-    {user ? <div className='flex flex-row gap-3'>
-    <Link to={"/orders"}>
+    {user ? <div className='flex flex-col sm:flex-row items-center gap-3'>
+    <Link className='flex flex-row items-center gap-4 text-sm' to={"/orders"}>
          <img  src={user.photoURL} className='rounded-full w-10'/>
+         <span> View Orders</span>
     </Link>
  
         <button className='text-sm text-slate-500' onClick={handleLogOut}>  Logout</button>

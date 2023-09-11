@@ -72,12 +72,11 @@ const Sidebar = () => {
               <CartItem />
             </motion.div>
           </div>
-          <div className="fixed bottom-0 flex flex-col w-[350px] bg-white p-4 gap-2 h-3/12 overflow-hidden">
+          <div className="fixed bottom-0 flex flex-col w-full bg-white p-4 gap-2 h-3/12 overflow-hidden">
             <div className="flex flex-row justify-between">
               <span> Total: {total} </span>
               <button onClick={emptyCart}> <FaTrash /> </button>
             </div>
-            <button className="px-8 py-4 flex-grow bg-slate-400" onClick={updateCartInFirestore}>Save</button>
             <Link to="/checkout" className="bg-black text-white px-8 py-4 flex-grow text-center">
               <button>Checkout</button>
             </Link>

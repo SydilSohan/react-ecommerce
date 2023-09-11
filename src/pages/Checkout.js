@@ -33,14 +33,15 @@ const CheckoutPage = () => {
     console.log(orderForm);
     console.log(user)
     await placeOrder()
+    navigate("/orders")
     
   } 
 
   return (
    
    
-    <div className=" grid grid-cols-3 w-11/12 mx-auto "> 
-      <div className="lg:col-span-2 col-span-3 bg-indigo-50 space-y-8 px-12">
+    <div className=" flex flex-col-reverse md:grid md:grid-cols-3 w-full sm:w-11/12 mx-auto "> 
+      <div className="lg:col-span-2 col-span-3 bg-indigo-50 sm:bg-white space-y-8 sm:px-1 px-2">
         <div className="mt-8 p-4 relative flex flex-col sm:flex-row sm:items-center bg-white shadow rounded-md">
           <div className="flex flex-row items-center border-b sm:border-b-0 w-full sm:w-auto pb-4 sm:pb-0">
             <div className="text-yellow-500">
@@ -56,10 +57,10 @@ const CheckoutPage = () => {
           </div>
         </div>
         <div className="rounded-md">
-          <form id="payment-form" onSubmit={handleSubmit}>
+          <form id="payment-form"  onSubmit={handleSubmit}>
             <section>
               <h2 className="uppercase tracking-wide text-lg font-semibold text-gray-700 my-2">Shipping & Billing Information</h2>
-              <fieldset className="mb-3 bg-white shadow-lg rounded text-gray-600">
+              <fieldset className="mb-3 bg-white shadow-lg rounded text-gray-600 p-4">
               
                 <label className="flex border-b border-gray-200 h-12 py-3 items-center">
                   <span className="text-right px-2">Name</span>
@@ -134,7 +135,7 @@ const CheckoutPage = () => {
                 <span className="text-right px-2">Card</span>
                 <input name="card" className="focus:outline-none px-3 w-full" placeholder="Card number MM/YY CVC" required />
               </label>
-                <button className="submit-button px-4 py-3 rounded-full bg-pink-400 text-white focus:ring focus:outline-none w-full text-xl font-semibold transition-colors" type='submit'>
+                <button className="submit-button px-4 py-3 rounded-full bg-blue-500 text-white focus:ring focus:outline-none w-full text-xl font-semibold transition-colors" type='submit'>
           Pay ${total}
         </button>
               </fieldset><div className="rounded-md">
@@ -146,25 +147,25 @@ const CheckoutPage = () => {
         </div>
         
       </div>
-      <div className="col-span-1 bg-white lg:block hidden">
-        <h1 className="py-6 border-b-2 text-xl text-gray-600 px-8">Order Summary</h1>
+      <div className=" bg-white  p-2  col-span-3 px-2 grid col-span-1">
+        <h1 className="py-6 border-b-2 text-xl text-gray-600 sm:px-8">Order Summary</h1>
         { cart.length > 0 ? 
 
           <>
 
-          <ul className="py-6 border-b space-y-6 px-8">
+          <ul className="py-6 border-b space-y-6   p-2 ">
         {cart.map(item => (
-          <li key={item.id} className="grid grid-cols-6 gap-2 border-b-1">
-            <div className="col-span-1 self-center mr-2">
-              <img src={item.image} alt="Product" className="rounded w-full" />
+          <li key={item.id} className="grid grid-cols-3 sm:grid-cols-3 gap-2 border-b-1">
+            <div className=" self-center mr-2">
+              <img src={item.image} alt="Product" className="rounded w-16" />
             </div>
-            <div className="flex flex-col col-span-3 pt-2">
-              <span className="text-gray-600 text-md font-semi-bold"> {item.title.length > 10 ? `${item.title.substring(0, 30)}...` : item.title}</span>
-            </div>
+            
             <div className="col-span-2 pt-3">
+            <span className="text-gray-600 text-md font-semi-bold"> {item.title}</span>
+
               <div className="flex items-center space-x-2 text-sm justify-between">
                 <span className="text-gray-400">{`${item.amount} x ${item.price}`}</span>
-                <span className="text-pink-400 font-semibold inline-block">${item.amount * item.price}</span>
+                <span className="text-blue-500 font-semibold inline-block">${item.amount * item.price}</span>
               </div>
             </div>
           </li>
@@ -174,17 +175,17 @@ const CheckoutPage = () => {
        
           
         </ul>
-        <div className="px-8 border-b">
+        <div className="px-2 border-b">
           <div className="flex justify-between py-4 text-gray-600">
             <span>Subtotal</span>
-            <span className="font-semibold text-pink-500">${total}</span>
+            <span className="font-semibold text-blue-500">${total}</span>
           </div>
           <div className="flex justify-between py-4 text-gray-600">
             <span>Shipping</span>
-            <span className="font-semibold text-pink-500">Free</span>
+            <span className="font-semibold text-blue-500">Free</span>
           </div>
         </div>
-        <div className="font-semibold text-xl px-8 flex justify-between py-8 text-gray-600">
+        <div className="font-semibold text-xl px-2 flex justify-between py-8 text-gray-600">
           <span>Total</span>
           <span>${total}</span>
         </div>

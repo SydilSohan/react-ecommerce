@@ -12,8 +12,8 @@ const OrderCollection =  () => {
 
 
   return (
-    <div className=' text-black mx-auto w-7/12'>
-    <div className="-my-2 py-2 overflow-x-auto sm:-mx-6 sm:px-6 lg:-mx-8 pr-10 lg:px-8">
+    <div className=' text-black min-h-screen  w-full sm:w-7/12 mx-[5px] sm:mx-auto'>
+    <div className="overflow-x-auto sm:-mx-6 sm:px-6 lg:-mx-8 sm:pr-10 lg:px-8">
     {/* <div className="align-middle rounded-tl-lg rounded-tr-lg inline-block w-full py-4 overflow-hidden bg-white shadow-lg px-12">
       <div className="flex justify-between">
         <div className="inline-flex border rounded w-7/12 px-2 lg:px-6 h-12 bg-transparent">
@@ -52,26 +52,22 @@ const OrderCollection =  () => {
         </div>
       </div>
     </div> */}
-    <div className="align-middle inline-block min-w-full shadow overflow-hidden bg-white shadow-dashboard px-8 pt-3 rounded-bl-lg rounded-br-lg">
+    <div className="align-middle inline-block min-w-full shadow overflow-hidden bg-white shadow-dashboard sm:px-8 pt-3 rounded-bl-lg rounded-br-lg">
       <table className="min-w-full">
         <thead>
           <tr>
-            <th className="px-6 py-3 border-b-2 border-gray-300 text-left leading-4 text-blue-500 tracking-wider">
-              ID
+            <th className="px-4 py-3 border-b-2 border-gray-300 text-left leading-4 text-blue-500 tracking-wider">
+              Serial
             </th>
-            <th className="px-6 py-3 border-b-2 border-gray-300 text-left text-sm leading-4 text-blue-500 tracking-wider">
+            <th className="px-4 py-3 border-b-2 border-gray-300 text-left text-sm leading-4 text-blue-500 tracking-wider">
               Date
             </th>
-            <th className="px-6 py-3 border-b-2 border-gray-300 text-left text-sm leading-4 text-blue-500 tracking-wider">
-              Name
-            </th>
-            <th className="px-6 py-3 border-b-2 border-gray-300 text-left text-sm leading-4 text-blue-500 tracking-wider">
-              Phone
-            </th>
-            <th className="px-6 py-3 border-b-2 border-gray-300 text-left text-sm leading-4 text-blue-500 tracking-wider">
+            
+          
+            <th className="px-4 py-3 border-b-2 border-gray-300 text-left text-sm leading-4 text-blue-500 tracking-wider">
               Products
             </th>
-            <th className="px-6 py-3 border-b-2 border-gray-300 text-left text-sm leading-4 text-blue-500 tracking-wider">
+            <th className="px-4 py-3 border-b-2 border-gray-300 text-left text-sm leading-4 text-blue-500 tracking-wider">
               Total
             </th>
             <th className="px-6 py-3 border-b-2 border-gray-300" />
@@ -83,41 +79,33 @@ const OrderCollection =  () => {
         {orders.map((order, index) => (
              
           <tr key={order.id}>
-            <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-500">
+            <td className="px-4 py-4 whitespace-no-wrap border-b border-gray-500">
               <div className="flex items-center">
                 <div>
                   <div className="text-sm leading-5 text-gray-800">{index}</div>
                 </div>
               </div>
             </td>
-            <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-500">
-              <div className="text-sm leading-5 text-blue-900">{order.orderDate ? (
+            <td className="px-4 py-4 whitespace-no-wrap border-b border-gray-500">
+              <div className="text-sm leading-5 text-blue-900">
             <div>
-              <p>Date: {order.orderDate.toDate().toLocaleDateString()}</p>
-              <p>Time: {order.orderDate.toDate().toLocaleTimeString()}</p>
+              <p className='text-black'>{order.doc.orderDate}</p>
             </div>
-          ) : (
-            <p>Date not available</p>
-          )}
               </div>
             </td>
-            <td className="px-6 py-4 whitespace-no-wrap border-b text-blue-900 border-gray-500 text-sm leading-5">
-            {order.name}
-
-            </td>
-            <td className="px-6 py-4 whitespace-no-wrap border-b text-blue-900 border-gray-500 text-sm leading-5">
-            </td>
-            <td className="px-6 py-4 whitespace-no-wrap border-b text-blue-900 border-gray-500 text-sm leading-5">
+           
+            
+            <td className="px-4 py-4 whitespace-no-wrap border-b text-blue-900 border-gray-500 text-sm leading-5">
               <span className="relative inline-block px-3 py-1 font-semibold text-green-900 leading-tight">
                 <span
                   aria-hidden=""
                   className="absolute inset-0 bg-green-200 opacity-50 rounded-full"
                 />
-                <span className="relative text-xs">active</span>
+                <span className="relative text-xs">{order.doc.orderItems.length}</span>
               </span>
             </td>
             <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-500 text-blue-900 text-sm leading-5">
-              September 12
+              ${order.doc.total}
             </td>
             <td className="px-6 py-4 whitespace-no-wrap text-right border-b border-gray-500 text-sm leading-5">
               <button className="px-5 py-2 border-blue-500 border text-blue-500 rounded transition duration-300 hover:bg-blue-700 hover:text-white focus:outline-none">

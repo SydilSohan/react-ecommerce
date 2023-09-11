@@ -17,6 +17,7 @@ import OrderProvider from './contexts/OrderContext';
 import SingleOrder from './pages/SingleOrder';
 import OrderCollection from './pages/OrderCollection';
 import Content from './pages/Features';
+import About from './pages/About';
 const App = () => {
 console.log(db)
   return (<div className='overflow-hidden'>
@@ -45,6 +46,9 @@ console.log(db)
 
             <Route path="/orders/:id" element={<SingleOrder />} />
             <Route path="/features" element={<Content />} />
+            <Route path="/about" element={<About />} />
+            
+
 
 
 

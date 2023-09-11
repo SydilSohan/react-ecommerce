@@ -104,14 +104,14 @@ const {user} = useContext(UserContext);
             </a>
           </li>
           <li>
-            <a
-              href="/"
+            <Link
+              to={"/about"}
               aria-label="About us"
               title="About us"
               class="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
             >
               About us
-            </a>
+            </Link>
           </li>
           <li>
           <div className='flex flex-row gap-x-4'>
@@ -139,7 +139,14 @@ const {user} = useContext(UserContext);
           </li>
           
         </ul>
-        <div class="lg:hidden">
+        
+        <div class="lg:hidden flex flex-row">
+        <div className='lg:hidden '>
+        <button className='flex flex-row gap-2 justify-center items-center' onClick={() => setIsOpen(!isOpen)}>
+     <FiShoppingCart className='text-2xl' />
+     <span className="text-[8px] text-white bg-green-400 rounded-full px-2 py-1 -ml-5 mt-3"> {cart.length}</span>
+   </button>
+        </div>
           <button
             aria-label="Open Menu"
             title="Open Menu"
@@ -225,14 +232,9 @@ const {user} = useContext(UserContext);
                       </a>
                     </li>
                     <li>
-                      <a
-                        href="/"
-                        aria-label="Our product"
-                        title="Our product"
-                        class="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
-                      >
-                        Features
-                      </a>
+                    <Link to={"/features"}>
+              Features
+            </Link>
                     </li>
                     <li>
                       <a
@@ -245,27 +247,20 @@ const {user} = useContext(UserContext);
                       </a>
                     </li>
                     <li>
-                      <a
-                        href="/"
-                        aria-label="About us"
-                        title="About us"
-                        class="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
-                      >
-                        About us
-                      </a>
+                    <Link
+              to={"/about"}
+              aria-label="About us"
+              title="About us"
+              class="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
+            >
+              About us
+            </Link>
                     </li>
                     <li>
-                    <div className='flex flex-row gap-x-4'>
-      
-
-      <button className='flex flex-row gap-2' onClick={() => setIsOpen(!isOpen)}>
-     <FiShoppingCart />
-     <span className="text-xs text-white bg-green-400 rounded-full px-2 py-1 -ml-5 mt-3"> {cart.length}</span>
-   </button>
    <SignIn />
 
-   </div>
                     </li>
+                   
                   </ul>
                 </nav>
               </div>
