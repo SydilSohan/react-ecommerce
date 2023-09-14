@@ -32,15 +32,15 @@
 // export default Sidebar;
 import React, { useContext } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { FaArrowRight, FaTrash } from 'react-icons/fa';
+import { FaTrash } from 'react-icons/fa';
 import { SidebarContext } from '../contexts/SidebarContext';
 import CartItem from './CartItem';
 import { CartContext } from '../contexts/CartContext';
 import { Link } from 'react-router-dom';
 
 const Sidebar = () => {
-  const { cart, setCart, updateCartInFirestore, total, emptyCart } = useContext(CartContext);
-  const { isOpen, setIsOpen } = useContext(SidebarContext);
+  const {  total, emptyCart } = useContext(CartContext);
+  const { isOpen } = useContext(SidebarContext);
 
   const sidebarVariants = {
     open: { x: 0 },

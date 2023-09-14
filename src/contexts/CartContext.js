@@ -13,7 +13,7 @@ export const CartContext = createContext();
 const CartProvider = ({ children }) => {
   const { user } = useContext(UserContext);
   const [cart, setCart] = useState([]);
-  const [userCart, setUserCart] = useState();
+  const [userCart] = useState();
   const [total, setTotal] = useState(0);
  
   
@@ -84,40 +84,40 @@ const CartProvider = ({ children }) => {
       console.error('Error updating cart in Firestore:', error);
     }
   };
+  const getFirebaseCart = async () => {
+    try {
+      if (user) {
+        const userDocRef = doc(db, 'carts', user.uid);
+        const userDocSnapshot = await getDoc(userDocRef);
+        if (userDocSnapshot.exists()) {
 
+          const initalItems = userDocSnapshot.data().cartItems;
+          setTotal(userDocSnapshot.data().total)
+          const fetchProducts = Promise.all(
+            initalItems.map(async (cartItem) => {
+              const response = await fetch(
+                `https://fakestoreapi.com/products/${cartItem.productId}`
+              );
+              const product = await response.json();
+              return { ...product, amount: cartItem.amount };
+            })
+          );
+          fetchProducts.then((data) => {
+            setCart(data)
+          })
+
+        } else {
+          // Create the user document if it doesn't exist
+
+        }
+      }
+    } catch (error) {
+      console.error('Error updating cart in Firestore:', error);
+    }
+  }
 
   useEffect(() => {
-    const getFirebaseCart = async () => {
-      try {
-        if (user) {
-          const userDocRef = doc(db, 'carts', user.uid);
-          const userDocSnapshot = await getDoc(userDocRef);
-          if (userDocSnapshot.exists()) {
-
-            const initalItems = userDocSnapshot.data().cartItems;
-            setTotal(userDocSnapshot.data().total)
-            const fetchProducts = Promise.all(
-              initalItems.map(async (cartItem) => {
-                const response = await fetch(
-                  `https://fakestoreapi.com/products/${cartItem.productId}`
-                );
-                const product = await response.json();
-                return { ...product, amount: cartItem.amount };
-              })
-            );
-            fetchProducts.then((data) => {
-              setCart(data)
-            })
-
-          } else {
-            // Create the user document if it doesn't exist
-
-          }
-        }
-      } catch (error) {
-        console.error('Error updating cart in Firestore:', error);
-      }
-    }
+   
     getFirebaseCart()
 
   }, [user])

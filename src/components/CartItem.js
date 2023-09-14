@@ -1,14 +1,12 @@
 import React, { useContext} from 'react';
 import { CartContext } from '../contexts/CartContext';
-import { FiMinus, FiTrash, FiPlus, FiArrowRight } from 'react-icons/fi';
+import { FiTrash,  FiArrowRight } from 'react-icons/fi';
 import { Link } from 'react-router-dom';
-import { UserContext } from '../contexts/UserContext';
 import { SidebarContext } from '../contexts/SidebarContext';
 import { AnimatePresence, easeInOut, motion } from 'framer-motion';
 
 const CartItem = () => {
   const {isOpen, setIsOpen} =useContext(SidebarContext)
-  const {user } = useContext(UserContext)
   const { cart, removeFromCart, handleAmountChange, userCart, emptyCart } = useContext(CartContext);
   const itemVariants = {
     hidden: { opacity: 0, y: 30 },

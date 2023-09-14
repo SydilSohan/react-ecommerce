@@ -1,29 +1,12 @@
-import React, { useContext, useEffect, useState } from 'react'
-import {auth, provider} from "../fireBaseConfig";
+import React, { useContext} from 'react'
 import { FcGoogle } from "react-icons/fc"
 import { UserContext } from '../contexts/UserContext';
 import { Link } from 'react-router-dom';
 const SignIn = () => {
 const {user, handleLogIn, handleLogOut,} = useContext(UserContext)
-// const [value, setValue] = useState("")
-// const handleClick = () => {
-//     signInWithPopup(auth, provider).then((data) => {
-//         setValue(data.user.email)
-//         localStorage.setItem("email", data.user.email)
-//         console.log(data.user)
-//     })
-// }
-// const logout = () => {
-//     auth.signOut()
-//     localStorage.clear()
-//     window.location.reload()
-// }
-// useEffect(() => {
-// setValue(localStorage.getItem("email"))
-// }, [])
   return (
     < >
-    {user ? <div className='flex flex-col sm:flex-row items-center gap-3'>
+    {user ? <div className='flex flex-col sm:flex-row justify-start  gap-3'>
     <Link className='flex flex-row items-center gap-4 text-sm' to={"/orders"}>
          <img  src={user.photoURL} className='rounded-full w-10'/>
          <span> View Orders</span>

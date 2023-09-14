@@ -1,46 +1,11 @@
-import React, { useContext, useEffect, useState} from 'react';
+import React, { useContext, useState} from 'react';
 import { Link } from 'react-router-dom';
 import { FiShoppingCart, FiHome } from 'react-icons/fi';
 import { SidebarContext } from '../contexts/SidebarContext';
 import { CartContext } from '../contexts/CartContext';
 import { UserContext } from '../contexts/UserContext';
 import SignIn from './SignIn';
-import {motion, AnimatePresence, easeInOut} from "framer-motion"
-
-// const Header = () => {
-// const {cart} = useContext(CartContext);
-// const {user} = useContext(UserContext);
-//   const { isOpen, setIsOpen } = useContext(SidebarContext);
-//   return (
-//     <div className={`w-full  px-32 bg-white mx-auto shadow-sm gap-4 flex justify-center flex-col  items-center text-lg transition-all duration-300 pt-4 pb-3`}>
-//       <div className='w-full flex justify-between text-4xl mb-3 bg-'>
-//         <Link to={"/"}>
-//           <FiHome />
-//         </Link>   
-//         <div>
-
-//         <div className='flex flex-row gap-x-4'>
-      
-
-//            <button className='flex flex-row gap-2' onClick={() => setIsOpen(!isOpen)}>
-//           <FiShoppingCart />
-//           <span className="text-xs text-white bg-green-400 rounded-full px-2 py-1 -ml-5 mt-3"> {cart.length}</span>
-//         </button>
-//         <SignIn />
-
-//         </div>
-
-        
-         
-//         </div>
-        
-//       </div>
-//     </div>
-//   );
-// };
-
-// export default Header;
-
+import {motion, AnimatePresence } from "framer-motion"
 
 const Header= () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -78,31 +43,13 @@ const {user} = useContext(UserContext);
           </span>
         </Link>
         <ul class="flex items-center hidden space-x-8 lg:flex">
-          <li>
-            <a
-              href="/"
-              aria-label="Our product"
-              title="Our product"
-              class="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
-            >
-              Product
-            </a>
-          </li>
+        
           <li>
             <Link to={"/features"}>
               Features
             </Link>
           </li>
-          <li>
-            <a
-              href="/"
-              aria-label="Product pricing"
-              title="Product pricing"
-              class="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
-            >
-              Pricing
-            </a>
-          </li>
+        
           <li>
             <Link
               to={"/about"}
@@ -126,19 +73,7 @@ const {user} = useContext(UserContext);
    </div>
           </li>
         </ul>
-        <ul class="flex items-center hidden space-x-8 lg:flex">
-          <li>
-            <a
-              href="/"
-              class="inline-flex items-center justify-center h-12 px-6 font-medium tracking-wide text-white transition duration-200 rounded shadow-md bg-deep-purple-accent-400 hover:bg-deep-purple-accent-700 focus:shadow-outline focus:outline-none"
-              aria-label="Sign up"
-              title="Sign up"
-            >
-              Sign up
-            </a>
-          </li>
-          
-        </ul>
+       
         
         <div class="lg:hidden flex flex-row">
         <div className='lg:hidden '>
@@ -257,7 +192,7 @@ const {user} = useContext(UserContext);
             </Link>
                     </li>
                     <li>
-   <SignIn />
+                      <SignIn />
 
                     </li>
                    

@@ -8,7 +8,6 @@ import { motion, AnimatePresence, easeInOut, spring } from 'framer-motion';
 import {
   collection,
   getDocs,
-  addDoc, setDoc, getDoc, deleteDoc, doc, updateDoc
 } from "firebase/firestore";
 
 const Grid = () => {

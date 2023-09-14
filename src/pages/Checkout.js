@@ -1,11 +1,8 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { CartContext } from '../contexts/CartContext';
-import CartItem from '../components/CartItem';
 import { SidebarContext } from '../contexts/SidebarContext';
 import { OrderContext } from '../contexts/OrderContext';
-import { doc, getDoc, setDoc, updateDoc, collection, getDocs, addDoc } from 'firebase/firestore';
 import { UserContext } from '../contexts/UserContext';
-import { db } from '../fireBaseConfig';
 import { useNavigate } from 'react-router-dom';
 
 const CheckoutPage = () => {
@@ -32,8 +29,11 @@ const CheckoutPage = () => {
     e.preventDefault();
     console.log(orderForm);
     console.log(user)
-    await placeOrder()
-    navigate("/orders")
+    const id = await placeOrder()
+    if (id) {
+      navigate(`/orders/${id}`)
+
+    }
     
   } 
 

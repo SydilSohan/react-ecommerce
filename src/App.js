@@ -47,6 +47,7 @@ console.log(db)
             <Route path="/orders/:id" element={<SingleOrder />} />
             <Route path="/features" element={<Content />} />
             <Route path="/about" element={<About />} />
+
             
 
 
