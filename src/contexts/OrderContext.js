@@ -127,7 +127,6 @@ const OrderProvider = ({ children }) => {
               :
               10.99
           })
-          alert("Order Placed Successfully")
           return newOrderRef.id;
 
           

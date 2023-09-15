@@ -12,6 +12,7 @@ const SingleOrder = () => {
   const {user} = useContext(UserContext);
   const navigate = useNavigate();
   getOrders()
+
   useEffect(() => {
     const fetchOrder = async () => {
       try {
@@ -27,7 +28,8 @@ const SingleOrder = () => {
     };
   
     fetchOrder();
-     }, [id ]);
+
+     }, [id]);
   
   return (
     <motion.div
@@ -129,7 +131,7 @@ const SingleOrder = () => {
                                 <img className='rounded-full hover:brightness-50 transition duration-200' src={user.photoURL} alt={user.displayName} />
                                 <div className=" flex justify-start items-start flex-col space-y-2">
                                     <p className="text-base font-semibold leading-4 text-left text-gray-800">{user.displayName}</p>
-                                    <p className="text-sm leading-5 text-gray-600">{orders.length} Previous Orders</p>
+                                    <p className="text-sm leading-5 text-gray-600">{orders ? <> {orders.length}</> :""} Previous Orders</p>
                                 </div>
                             </div>
 
