@@ -1,6 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { CartContext } from '../contexts/CartContext';
-import { SidebarContext } from '../contexts/SidebarContext';
 import { OrderContext } from '../contexts/OrderContext';
 import { UserContext } from '../contexts/UserContext';
 import { useNavigate } from 'react-router-dom';
@@ -8,8 +7,7 @@ import { useNavigate } from 'react-router-dom';
 const CheckoutPage = () => {
   const {placeOrder, orderForm, setOrderForm, latestOrderId} = useContext(OrderContext);
   const {user} = useContext(UserContext);
-  const {cart, total, emptyCart} = useContext(CartContext);
-  const {setIsOpen} = useContext(SidebarContext);
+  const {cart, total, emptyCart, setIsOpen} = useContext(CartContext);
   const navigate = useNavigate();
   
   useEffect(()=> {

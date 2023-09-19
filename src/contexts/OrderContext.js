@@ -145,12 +145,12 @@ const OrderProvider = ({ children }) => {
   };
 
  
-  useEffect(() => {
-    setOrderForm({
-      ...orderForm,
-      total: total
-    })
-  }, [cart, total])
+  // useEffect(() => {
+  //   setOrderForm({
+  //     ...orderForm,
+  //     total: total
+  //   })
+  // }, [cart])
 
   return (
     <OrderContext.Provider value={{ orders, getOrders, placeOrder, orderForm, setOrderForm, latestOrderId, getOrder }}>

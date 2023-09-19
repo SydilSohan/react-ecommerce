@@ -11,7 +11,6 @@ const SingleOrder = () => {
   const [orderItems, setOrderItems] = useState();
   const {user} = useContext(UserContext);
   const navigate = useNavigate();
-  getOrders()
 
   useEffect(() => {
     const fetchOrder = async () => {

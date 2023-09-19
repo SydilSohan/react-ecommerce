@@ -15,7 +15,7 @@ const CartProvider = ({ children }) => {
   const [cart, setCart] = useState([]);
   const [userCart] = useState();
   const [total, setTotal] = useState(0);
- 
+   const [isOpen, setIsOpen] = useState(false);
   
   const addToCart = async (product) => {
     const cartItem = cart.find((item) => item.id === product.id);
@@ -136,7 +136,7 @@ const CartProvider = ({ children }) => {
   }, [cart, total])
 
   return (
-    <CartContext.Provider value={{ addToCart, cart, setCart, updateCartInFirestore, handleAmountChange, removeFromCart, userCart, total, emptyCart }}>
+    <CartContext.Provider value={{ addToCart, cart,  setCart, updateCartInFirestore, handleAmountChange, removeFromCart, userCart, total, emptyCart, isOpen , setIsOpen}}>
       {children}
     </CartContext.Provider>
   );

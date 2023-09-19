@@ -1,7 +1,6 @@
 import React, { useContext, useState} from 'react';
 import { Link } from 'react-router-dom';
 import { FiShoppingCart, FiHome } from 'react-icons/fi';
-import { SidebarContext } from '../contexts/SidebarContext';
 import { CartContext } from '../contexts/CartContext';
 import { UserContext } from '../contexts/UserContext';
 import SignIn from './SignIn';
@@ -9,9 +8,8 @@ import {motion, AnimatePresence } from "framer-motion"
 
 const Header= () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-const {cart} = useContext(CartContext);
+const {cart, isOpen ,setIsOpen} = useContext(CartContext);
 const {user} = useContext(UserContext);
-  const { isOpen, setIsOpen } = useContext(SidebarContext);
 
  
   return (

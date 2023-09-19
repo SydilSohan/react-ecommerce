@@ -1,10 +1,12 @@
-import React, { useContext} from 'react';
+import React, { useContext, useEffect} from 'react';
 import { OrderContext } from '../contexts/OrderContext';
 import { Link } from 'react-router-dom';
 
 const OrderCollection =  () => {
   const {getOrders, orders} = useContext(OrderContext)
-   getOrders()
+  useEffect(()=> {
+    getOrders()
+  }, [])
   return (
     <div className=' text-black min-h-screen  w-full sm:w-7/12 mx-[5px] sm:mx-auto'>
     <div className="overflow-x-auto sm:-mx-6 sm:px-6 lg:-mx-8 sm:pr-10 lg:px-8">
